@@ -1,4 +1,4 @@
-var Twitter = require('twitter');
+var Twitter = require('twitter'),steem=require('golos');
 var client = new Twitter({
   consumer_key: process.env.TWITTER_CONSUMER_KEY,
   consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
@@ -6,7 +6,7 @@ var client = new Twitter({
   access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
 });
 var d=[],u='vik',count;
-steem.api.getAccountVotes(u, function(err, result) {
+golos.api.getAccountVotes(u, function(err, result) {
   count=result.length;
   for (var i = 0; i < result.length; i++){
   d.push({
