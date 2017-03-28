@@ -2,7 +2,7 @@
 	"name": "twitbot",
 	"version": "0.0.1",
 	"description": "Twiting from golos.io",
-	"main": "bot.js",
+	"main": "gotweet.js",
 	"scripts": {
 		"start": "node gotweet.js"
 	},
