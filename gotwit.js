@@ -1,14 +1,30 @@
 var Twitter = require('twitter');
-
 var client = new Twitter({
   consumer_key: process.env.TWITTER_CONSUMER_KEY,
   consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
   access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEY,
   access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
 });
-
-client.post('statuses/update', {status: 'Hello golos.io! This is just a test... '},  function(error, tweet, response) {
-  if(error) throw error;
-  console.log(tweet);  
-  console.log(response);  
+var d=[],u='vik',count;
+steem.api.getAccountVotes(u, function(err, result) {
+  count=result.length;
+  for (var i = 0; i < result.length; i++){
+  d.push({
+  link:result[i].authorperm,
+  power:result[i].percent
+  })
+  }
+  var i = 0;
+            var twitVote = setInterval(function() {
+                if (d[i].power / 100 >= 20) {
+                  var twit = u+" проголосовал за пост в блокечейн https://golos.io/x/@"+d[i].link;
+                    client.post('statuses/update', {status: twit},  function(error, tweet, response) {
+                      if(error) throw error;
+                    });
+                  i++;
+                }
+                if (i == count) {
+				    clearInterval(twitVote);
+                 }
+            }, 1000);
 });
