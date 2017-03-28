@@ -1,4 +1,4 @@
-var Twitter = require('twitter'),steem=require('golos');
+var Twitter = require('twitter'),golos=require('golos');
 var client = new Twitter({
   consumer_key: process.env.TWITTER_CONSUMER_KEY,
   consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
@@ -17,14 +17,14 @@ golos.api.getAccountVotes(u, function(err, result) {
   var i = 0;
             var twitVote = setInterval(function() {
                 if (d[i].power / 100 >= 20) {
-                  var twit = u+" проголосовал за пост в блокечейн https://golos.io/x/@"+d[i].link;
+                  var twit = u+" понравился пост в блокчейн https://golos.io/x/@"+d[i].link;
                     client.post('statuses/update', {status: twit},  function(error, tweet, response) {
-                      if(error) throw error;
+                      if(error) throw JSON.stringify(error);
                     });
                   i++;
                 }
                 if (i == count) {
 				    clearInterval(twitVote);
                  }
-            }, 1000);
+            }, 20000);
 });
